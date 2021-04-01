@@ -20,7 +20,7 @@ const WordsSchema = new Schema(
     deletedWord: Boolean,
     hardWord: Boolean,
     corrects: Number,
-    errors: Number
+    errorsCount: Number
   },
   { collection: 'words' }
 );
