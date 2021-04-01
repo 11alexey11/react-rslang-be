@@ -8,4 +8,10 @@ const get = async wordId => {
   return word;
 };
 
-module.exports = { getAll, get };
+const getAllWords = async () => {
+  const words = await wordRepo.getAllWords();
+
+  return words;
+};
+
+module.exports = { getAll, get, getAllWords };

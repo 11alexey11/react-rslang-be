@@ -16,4 +16,9 @@ const get = async id => {
   return word;
 };
 
-module.exports = { getAll, get };
+const getAllWords = async () => {
+  const words = await Word.find();
+  return words;
+};
+
+module.exports = { getAll, get, getAllWords };

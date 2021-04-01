@@ -1,6 +1,12 @@
 const dotenv = require('dotenv');
 const path = require('path');
 
+process.env.MONGO_CONNECTION_STRING =
+  'mongodb+srv://rs-lang-alexey_11:rs-lang-alexey_11@cluster0.db9hl.mongodb.net/learnwords?retryWrites=true&w=majority';
+process.env.JWT_SECRET_KEY = 'rU_0SQVbRTGpBfOq';
+process.env.JWT_REFRESH_SECRET_KEY = 'Xi.SId_JrhCn!Zz8';
+process.env.PORT = '8080';
+
 dotenv.config({
   path: path.join(__dirname, '../../.env')
 });

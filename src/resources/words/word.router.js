@@ -15,11 +15,16 @@ router.route('/').get(async (req, res) => {
     );
   }
 
-  const words = await wordService.getAll({
-    page,
-    group
-  });
-  res.status(OK).send(words.map(word => word.toResponse()));
+  if (req.query.all) {
+    const words = await wordService.getAllWords();
+    res.status(OK).send(words.map(word => word.toResponse()));
+  } else {
+    const words = await wordService.getAll({
+      page,
+      group
+    });
+    res.status(OK).send(words.map(word => word.toResponse()));
+  }
 });
 
 router.route('/:id').get(async (req, res) => {
