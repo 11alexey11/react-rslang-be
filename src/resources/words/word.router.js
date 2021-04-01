@@ -32,4 +32,10 @@ router.route('/:id').get(async (req, res) => {
   res.status(OK).send(word.toResponse());
 });
 
+router.route('/').post(async (req, res) => {
+  const newWords = await wordService.replaceAllWords(req.body.words);
+
+  res.status(OK).send(newWords.map(word => word.toResponse()));
+});
+
 module.exports = router;

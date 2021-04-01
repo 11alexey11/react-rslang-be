@@ -21,4 +21,13 @@ const getAllWords = async () => {
   return words;
 };
 
-module.exports = { getAll, get, getAllWords };
+const replaceAllWords = async words => {
+  await Word.deleteMany();
+  await Word.insertMany(words);
+
+  const newWords = await Word.find();
+
+  return newWords;
+};
+
+module.exports = { getAll, get, getAllWords, replaceAllWords };
