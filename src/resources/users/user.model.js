@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 
 const User = new Schema(
   {
-    name: String,
     email: {
       type: String,
       required: true,
@@ -16,6 +15,11 @@ const User = new Schema(
       required: true,
       trim: true,
       minlength: 8
+    },
+    name: {
+      type: String,
+      required: true,
+      minlength: 1
     }
   },
   { collection: 'users' }
