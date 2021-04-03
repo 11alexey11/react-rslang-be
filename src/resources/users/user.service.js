@@ -10,7 +10,17 @@ const authenticate = async user => {
 
   const isValidated = await bcrypt.compare(user.password, userEntity.password);
   if (!isValidated) {
-    return { status: 'Forbidden', message: 'Your password are not validate.' };
+    return {
+      error: {
+        status: 'Forbidden',
+        errors: [
+          {
+            path: ['password'],
+            message: 'Your password is not validate.'
+          }
+        ]
+      }
+    };
   }
 
   const tokens = await tokenService.getTokens(userEntity._id);
