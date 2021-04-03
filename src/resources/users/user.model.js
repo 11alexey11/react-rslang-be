@@ -22,7 +22,7 @@ const User = new Schema(
       minlength: 1
     },
     photo: {
-      type: Buffer,
+      type: String,
       required: false
     }
   },
