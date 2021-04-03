@@ -20,6 +20,10 @@ const User = new Schema(
       type: String,
       required: true,
       minlength: 1
+    },
+    photo: {
+      type: Buffer,
+      required: false
     }
   },
   { collection: 'users' }
