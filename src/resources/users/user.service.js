@@ -6,9 +6,13 @@ const settingsService = require('../settings/setting.service');
 const statisticService = require('../statistics/statistic.service');
 
 const authenticate = async user => {
-  const userEntity = await usersRepo.getUserByEmail(user.email);
+  const dbData = await usersRepo.getUserByEmail(user.email);
 
-  const isValidated = await bcrypt.compare(user.password, userEntity.password);
+  if (dbData.error) {
+    return dbData;
+  }
+
+  const isValidated = await bcrypt.compare(user.password, dbData.password);
   if (!isValidated) {
     return {
       error: {
@@ -23,13 +27,13 @@ const authenticate = async user => {
     };
   }
 
-  const tokens = await tokenService.getTokens(userEntity._id);
+  const tokens = await tokenService.getTokens(dbData._id);
 
   return {
     ...tokens,
-    userId: userEntity._id,
-    name: userEntity.name,
-    photo: userEntity.photo
+    userId: dbData._id,
+    name: dbData.name,
+    photo: dbData.photo
   };
 };
 
