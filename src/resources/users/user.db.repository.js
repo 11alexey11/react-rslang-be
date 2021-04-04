@@ -6,7 +6,17 @@ const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
 const getUserByEmail = async email => {
   const user = await User.findOne({ email });
   if (!user) {
-    throw new NOT_FOUND_ERROR(ENTITY_NAME, { email });
+    return {
+      error: {
+        status: 'Not found',
+        errors: [
+          {
+            path: ['e-mail'],
+            message: 'This account does not exist'
+          }
+        ]
+      }
+    };
   }
 
   return user;
