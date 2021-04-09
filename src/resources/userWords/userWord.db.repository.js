@@ -14,6 +14,22 @@ const get = async (wordId, userId) => {
   return userWord;
 };
 
+const saveWords = async (userId, userWords) => {
+  const words = await UserWord.updateOne(
+    { userId },
+    {
+      userId,
+      hardWords: userWords.hardWords,
+      deletedWords: userWords.deletedWords,
+      learningWords: userWords.learningWords
+    },
+    {
+      upsert: true
+    }
+  );
+  return words;
+};
+
 const save = async (wordId, userId, userWord) => {
   try {
     return await UserWord.create(userWord);
@@ -41,4 +57,4 @@ const update = async (wordId, userId, userWord) => {
 
 const remove = async (wordId, userId) => UserWord.deleteOne({ wordId, userId });
 
-module.exports = { getAll, get, save, update, remove };
+module.exports = { getAll, get, save, saveWords, update, remove };

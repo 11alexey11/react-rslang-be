@@ -15,6 +15,12 @@ router.get('/:wordId', validator(wordId, 'params'), async (req, res) => {
   res.status(OK).send(word.toResponse());
 });
 
+router.post('/', async (req, res) => {
+  await userWordService.saveWords(req.userId, req.body);
+  const changedData = await userWordService.getAll(req.userId);
+  res.status(OK).send(changedData.map(w => w.toResponse()));
+});
+
 router.post(
   '/:wordId',
   validator(wordId, 'params'),

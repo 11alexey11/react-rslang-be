@@ -10,7 +10,10 @@ const UserWordsSchema = new Schema(
     optional: {
       type: Object,
       required: false
-    }
+    },
+    hardWords: { type: Array, required: false },
+    deletedWords: { type: Array, required: false },
+    learningWords: { type: Array, required: false }
   },
   { collection: 'userWords' }
 );
