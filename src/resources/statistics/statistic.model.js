@@ -14,6 +14,10 @@ const StatisticSchema = new Schema(
     optional: {
       type: Object,
       required: false
+    },
+    savannah: {
+      type: Object,
+      required: false
     }
   },
   { collection: 'statistic' }

@@ -22,8 +22,32 @@ const getAllWords = async () => {
 };
 
 const replaceAllWords = async words => {
+  const changedWords = words.map(item => {
+    return {
+      _id: item._id.$oid,
+      group: item.group,
+      page: item.page,
+      word: item.word,
+      image: item.image,
+      audio: item.audio,
+      audioMeaning: item.audioMeaning,
+      audioExample: item.audioExample,
+      textMeaning: item.textMeaning,
+      textExample: item.textExample,
+      transcription: item.transcription,
+      __v: item.__v,
+      textExampleTranslate: item.textExampleTranslate,
+      textMeaningTranslate: item.textMeaningTranslate,
+      wordTranslate: item.wordTranslate,
+      deletedWord: item.deletedWord,
+      hardWord: item.hardWord,
+      corrects: item.corrects,
+      errorsCount: item.errorsCount,
+      learningWord: item.learningWord
+    };
+  });
   await Word.deleteMany();
-  await Word.insertMany(words);
+  await Word.insertMany(changedWords);
 
   const newWords = await Word.find();
 
