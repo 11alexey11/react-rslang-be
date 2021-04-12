@@ -22,7 +22,6 @@ const getAllWords = async () => {
 };
 
 const replaceAllWords = async words => {
-  words = JSON.parse(words);
   const changedWords = words.map(item => {
     return {
       _id: item._id.$oid,
