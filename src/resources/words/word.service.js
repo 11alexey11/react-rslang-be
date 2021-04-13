@@ -20,4 +20,10 @@ const replaceAllWords = async words => {
   return newWords;
 };
 
-module.exports = { getAll, get, getAllWords, replaceAllWords };
+const replaceWord = async (wordId, word) => {
+  const newWord = await wordRepo.replaceWord(wordId, word);
+
+  return newWord;
+};
+
+module.exports = { getAll, get, getAllWords, replaceAllWords, replaceWord };

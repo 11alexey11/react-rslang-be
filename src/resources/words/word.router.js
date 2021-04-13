@@ -40,4 +40,10 @@ router.route('/').post(async (req, res) => {
   res.status(OK).send(newWords.map(word => word.toResponse()));
 });
 
+router.route('/:id').post(async (req, res) => {
+  const newWord = await wordService.replaceWord(req.params.id, req.params.id);
+
+  res.status(OK).send(newWord);
+});
+
 module.exports = router;
