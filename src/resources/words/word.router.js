@@ -34,7 +34,7 @@ router.route('/:id').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
-  console.log(req.body.words);
+  console.log(req.body.words[0]);
   const newWords = await wordService.replaceAllWords(req.body.words);
 
   res.status(OK).send(newWords.map(word => word.toResponse()));
