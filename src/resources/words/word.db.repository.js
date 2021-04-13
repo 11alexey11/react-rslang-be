@@ -31,7 +31,7 @@ const replaceAllWords = async words => {
 };
 
 const replaceWord = async (id, word) => {
-  await Word.updateOne(id, word);
+  await Word.updateOne({ _id: id }, word);
   const newWord = await Word.findOne({ _id: id });
   return newWord;
 };
