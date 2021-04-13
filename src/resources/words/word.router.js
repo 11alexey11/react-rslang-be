@@ -17,6 +17,7 @@ router.route('/').get(async (req, res) => {
 
   if (req.query.all) {
     const words = await wordService.getAllWords();
+    console.log(words.map(word => word.toResponse()));
     res.status(OK).send(words.map(word => word.toResponse()));
   } else {
     const words = await wordService.getAll({
@@ -33,6 +34,7 @@ router.route('/:id').get(async (req, res) => {
 });
 
 router.route('/').post(async (req, res) => {
+  console.log(req.body.words);
   const newWords = await wordService.replaceAllWords(req.body.words);
 
   res.status(OK).send(newWords.map(word => word.toResponse()));
