@@ -49,16 +49,51 @@ const save = async (wordId, userId, userWord) => {
 };
 
 const update = async (wordId, userId, userWord) => {
-  const updatedWord = await UserWord.findOneAndUpdate(
-    { wordId, userId },
-    { $set: userWord },
-    { new: true }
-  );
-  if (!updatedWord) {
-    throw new NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
+  if (wordsArray[0]._id) {
+    const newWordsArray = wordsArray.map(item => {
+      const id = item._id.$oid;
+      delete item._id;
+      return {
+        id,
+        ...item
+      };
+    });
+
+    const updatedWord = await UserWord.updateOne(
+      { userId },
+      {
+        userId,
+        words: newWordsArray
+      },
+      {
+        upsert: true
+      }
+    );
+
+    if (!updatedWord) {
+      throw new NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
+    }
   }
 
-  return updatedWord;
+  const documents = await UserWord.find({ userId });
+
+  const newWords = documents[0].words.map(item => {
+    if (item.id === wordId) {
+      return userWord;
+    }
+    return item;
+  });
+
+  await UserWord.updateOne(
+    { userId },
+    {
+      $set: {
+        words: newWords
+      }
+    }
+  );
+
+  return userWord;
 };
 
 const remove = async (wordId, userId) => UserWord.deleteOne({ wordId, userId });

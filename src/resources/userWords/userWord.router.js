@@ -35,19 +35,14 @@ router.post(
   }
 );
 
-router.put(
-  '/:wordId',
-  validator(wordId, 'params'),
-  validator(userWord, 'body'),
-  async (req, res) => {
-    const word = await userWordService.update(
-      req.params.wordId,
-      req.userId,
-      req.body
-    );
-    res.status(OK).send(word.toResponse());
-  }
-);
+router.put('/:wordId', validator(wordId, 'params'), async (req, res) => {
+  const word = await userWordService.update(
+    req.params.wordId,
+    req.userId,
+    req.body
+  );
+  res.status(OK).send(word);
+});
 
 router.delete('/:wordId', validator(wordId, 'params'), async (req, res) => {
   await userWordService.remove(req.params.wordId, req.userId);
