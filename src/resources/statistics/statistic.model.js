@@ -15,91 +15,21 @@ const StatisticSchema = new Schema(
       type: Object,
       required: false
     },
-    shortStatistics: {
+    statistics: {
       savannah: {
-        data: {
-          type: String,
-          required: false
-        },
-        countLearningWords: {
-          type: Number,
-          required: false
-        },
-        winStreak: {
-          type: Number,
-          required: false
-        },
-        generalCountLearningWords: {
-          type: Number,
-          required: false
-        },
-        countRightAnswers: {
-          type: Number,
-          required: false
-        }
-      },
-      audioCall: {
-        data: {
-          type: String,
-          required: false
-        },
-        countLearningWords: {
-          type: Number,
-          required: false
-        },
-        winStreak: {
-          type: Number,
-          required: false
-        },
-        generalCountLearningWords: {
-          type: Number,
-          required: false
-        }
-      },
-      sprint: {
-        data: {
-          type: String,
-          required: false
-        },
-        countLearningWords: {
-          type: Number,
-          required: false
-        },
-        winStreak: {
-          type: Number,
-          required: false
-        },
-        generalCountLearningWords: {
-          type: Number,
-          required: false
-        }
-      },
-      constructorWords: {
-        data: {
-          type: String,
-          required: false
-        },
-        countLearningWords: {
-          type: Number,
-          required: false
-        },
-        winStreak: {
-          type: Number,
-          required: false
-        },
-        generalCountLearningWords: {
-          type: Number,
-          required: false
-        }
-      }
-    },
-    longStatistics: {
-      data: {
-        type: String,
+        type: Array,
         required: false
       },
-      countLearningWords: {
-        type: Number,
+      audioCall: {
+        type: Array,
+        required: false
+      },
+      sprint: {
+        type: Array,
+        required: false
+      },
+      constructorWords: {
+        type: Array,
         required: false
       }
     }

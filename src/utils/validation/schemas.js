@@ -50,8 +50,7 @@ const schemas = {
         .min(0)
         .max(100000),
       optional: optionalScheme,
-      shortStatistics: Joi.object(),
-      longStatistics: Joi.object()
+      statistics: Joi.object()
     }),
   settings: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
