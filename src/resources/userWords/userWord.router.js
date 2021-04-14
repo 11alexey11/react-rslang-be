@@ -16,7 +16,7 @@ router.get('/:wordId', validator(wordId, 'params'), async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  await userWordService.saveWords(req.userId, req.body);
+  await userWordService.saveWords(req.userId);
   const changedData = await userWordService.getAll(req.userId);
   res.status(OK).send(changedData.map(w => w.toResponse()));
 });

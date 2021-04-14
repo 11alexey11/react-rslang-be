@@ -1,5 +1,6 @@
 const UserWord = require('./userWord.model');
 const { NOT_FOUND_ERROR, ENTITY_EXISTS } = require('../../errors/appErrors');
+const wordsArray = require('../../common/words.json');
 const ENTITY_NAME = 'user word';
 const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
 
@@ -14,14 +15,19 @@ const get = async (wordId, userId) => {
   return userWord;
 };
 
-const saveWords = async (userId, userWords) => {
+const saveWords = async userId => {
+  const newWordsArray = wordsArray.map(item => {
+    const _id = item._id.$oid;
+    return {
+      ...item,
+      _id
+    };
+  });
   const words = await UserWord.updateOne(
     { userId },
     {
       userId,
-      hardWords: userWords.hardWords,
-      deletedWords: userWords.deletedWords,
-      learningWords: userWords.learningWords
+      words: newWordsArray
     },
     {
       upsert: true

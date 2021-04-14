@@ -4,21 +4,18 @@ const { addMethods } = require('../../utils/toResponse');
 
 const UserWordsSchema = new Schema(
   {
-    wordId: { type: mongoose.Schema.Types.ObjectID, required: true },
     userId: { type: mongoose.Schema.Types.ObjectID, required: true },
     difficulty: { type: String, required: false },
     optional: {
       type: Object,
       required: false
     },
-    hardWords: { type: Array, required: false },
-    deletedWords: { type: Array, required: false },
-    learningWords: { type: Array, required: false }
+    words: { type: Array, required: false }
   },
   { collection: 'userWords' }
 );
 
-UserWordsSchema.index({ wordId: 1, userId: 1 }, { unique: true });
+UserWordsSchema.index({ userId: 1 }, { unique: true });
 
 addMethods(UserWordsSchema);
 
