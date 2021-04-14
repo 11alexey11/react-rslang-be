@@ -49,7 +49,9 @@ const schemas = {
         .integer()
         .min(0)
         .max(100000),
-      optional: optionalScheme
+      optional: optionalScheme,
+      shortStatistics: Joi.object(),
+      longStatistics: Joi.object()
     }),
   settings: Joi.object()
     .options({ abortEarly: false, allowUnknown: false })
