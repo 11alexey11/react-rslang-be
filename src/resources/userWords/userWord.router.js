@@ -41,7 +41,7 @@ router.put('/:wordId', validator(wordId, 'params'), async (req, res) => {
     req.userId,
     req.body
   );
-  res.status(OK).send(words);
+  res.status(OK).send(words.map(w => w.toResponse()));
 });
 
 router.delete('/:wordId', validator(wordId, 'params'), async (req, res) => {
