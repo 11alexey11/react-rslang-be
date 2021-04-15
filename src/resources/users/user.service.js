@@ -33,7 +33,8 @@ const authenticate = async user => {
     ...tokens,
     userId: dbData._id,
     name: dbData.name,
-    photo: dbData.photo
+    photo: dbData.photo,
+    email: dbData.email
   };
 };
 
@@ -45,7 +46,10 @@ const save = async user => {
   const tokens = await tokenService.getTokens(dbData._id);
   return {
     ...tokens,
-    ...dbData
+    id: dbData._id,
+    name: dbData.name,
+    photo: dbData.photo,
+    email: dbData.email
   };
 };
 
