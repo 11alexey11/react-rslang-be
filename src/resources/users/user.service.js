@@ -39,7 +39,16 @@ const authenticate = async user => {
 
 const get = id => usersRepo.get(id);
 
-const save = user => usersRepo.save(user);
+const save = async user => {
+  usersRepo.save(user);
+  const dbData = await usersRepo.getUserByEmail(user.email);
+  const tokens = await tokenService.getTokens(dbData._id);
+  const newUser = {
+    ...tokens,
+    ...user
+  };
+  return usersRepo.save(newUser);
+};
 
 const update = (id, user) => usersRepo.update(id, user);
 
