@@ -43,11 +43,10 @@ const save = async user => {
   usersRepo.save(user);
   const dbData = await usersRepo.getUserByEmail(user.email);
   const tokens = await tokenService.getTokens(dbData._id);
-  const newUser = {
+  return {
     ...tokens,
     ...user
   };
-  return usersRepo.save(newUser);
 };
 
 const update = (id, user) => usersRepo.update(id, user);

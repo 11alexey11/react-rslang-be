@@ -10,11 +10,10 @@ const {
 
 router.post('/', validator(user, 'body'), async (req, res) => {
   const responseDB = await userService.save(req.body);
-  console.log(responseDB);
   if (responseDB.error) {
     res.status(OK).send(responseDB);
   } else {
-    res.status(OK).send(responseDB.toResponse());
+    res.status(OK).send(responseDB);
   }
 });
 
