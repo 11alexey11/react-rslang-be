@@ -93,7 +93,7 @@ const update = async (wordId, userId, userWord) => {
     }
   );
 
-  return userWord;
+  return await UserWord.find({ userId });
 };
 
 const remove = async (wordId, userId) => UserWord.deleteOne({ wordId, userId });

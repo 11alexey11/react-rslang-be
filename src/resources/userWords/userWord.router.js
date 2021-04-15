@@ -36,12 +36,12 @@ router.post(
 );
 
 router.put('/:wordId', validator(wordId, 'params'), async (req, res) => {
-  const word = await userWordService.update(
+  const words = await userWordService.update(
     req.params.wordId,
     req.userId,
     req.body
   );
-  res.status(OK).send(word);
+  res.status(OK).send(words);
 });
 
 router.delete('/:wordId', validator(wordId, 'params'), async (req, res) => {
