@@ -45,7 +45,7 @@ const save = async user => {
   const tokens = await tokenService.getTokens(dbData._id);
   return {
     ...tokens,
-    ...user
+    ...dbData
   };
 };
 
