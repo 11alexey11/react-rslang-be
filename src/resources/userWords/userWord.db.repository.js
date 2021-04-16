@@ -1,6 +1,6 @@
 const UserWord = require('./userWord.model');
 const { NOT_FOUND_ERROR, ENTITY_EXISTS } = require('../../errors/appErrors');
-const wordsArray = require('../../common/words.json');
+const { words } = require('../../common/words');
 const ENTITY_NAME = 'user word';
 const MONGO_ENTITY_EXISTS_ERROR_CODE = 11000;
 
@@ -16,7 +16,7 @@ const get = async (wordId, userId) => {
 };
 
 const saveWords = async userId => {
-  const newWordsArray = wordsArray.map(item => {
+  const newWordsArray = words.map(item => {
     const _id = item._id.$oid;
     return {
       ...item,
@@ -49,19 +49,25 @@ const save = async (wordId, userId, userWord) => {
 };
 
 const update = async (wordId, userId, userWord) => {
-  const newWordsArray = wordsArray.map(item => {
-    if (item._id) {
-      const id = item._id.$oid;
-      delete item._id;
-      return {
-        id,
-        ...item
-      };
-    }
-    return;
-  });
+  const wordsDB = await UserWord.find({ userId });
+  let newWordsArray = [];
+  if (wordsDB.length === 0) {
+    newWordsArray = words.map(item => {
+      if (item.id === wordId) {
+        return userWord;
+      }
+      return item;
+    });
+  } else {
+    newWordsArray = wordsDB[0].words.map(item => {
+      if (item.id === wordId) {
+        return userWord;
+      }
+      return item;
+    });
+  }
 
-  const updatedWord = await UserWord.updateOne(
+  await UserWord.updateOne(
     { userId },
     {
       userId,
@@ -69,30 +75,6 @@ const update = async (wordId, userId, userWord) => {
     },
     {
       upsert: true
-    }
-  );
-
-  if (!updatedWord) {
-    throw new NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
-  }
-
-  const documents = await UserWord.find({ userId });
-
-  console.log(documents);
-
-  const newWords = documents[0].words.map(item => {
-    if (item.id === wordId) {
-      return userWord;
-    }
-    return item;
-  });
-
-  await UserWord.updateOne(
-    { userId },
-    {
-      $set: {
-        words: newWords
-      }
     }
   );
 
