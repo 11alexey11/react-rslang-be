@@ -41,6 +41,7 @@ const authenticate = async user => {
 const get = id => usersRepo.get(id);
 
 const save = async user => {
+  console.log(user);
   await usersRepo.save(user);
   const dbData = await usersRepo.getUserByEmail(user.email);
   const tokens = await tokenService.getTokens(dbData._id);

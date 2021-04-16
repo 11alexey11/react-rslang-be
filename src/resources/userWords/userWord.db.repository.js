@@ -49,33 +49,36 @@ const save = async (wordId, userId, userWord) => {
 };
 
 const update = async (wordId, userId, userWord) => {
-  if (wordsArray[0]._id) {
-    const newWordsArray = wordsArray.map(item => {
+  const newWordsArray = wordsArray.map(item => {
+    if (item._id.$oid) {
       const id = item._id.$oid;
       delete item._id;
       return {
         id,
         ...item
       };
-    });
-
-    const updatedWord = await UserWord.updateOne(
-      { userId },
-      {
-        userId,
-        words: newWordsArray
-      },
-      {
-        upsert: true
-      }
-    );
-
-    if (!updatedWord) {
-      throw new NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
     }
+    return;
+  });
+
+  const updatedWord = await UserWord.updateOne(
+    { userId },
+    {
+      userId,
+      words: newWordsArray
+    },
+    {
+      upsert: true
+    }
+  );
+
+  if (!updatedWord) {
+    throw new NOT_FOUND_ERROR(ENTITY_NAME, { wordId, userId });
   }
 
   const documents = await UserWord.find({ userId });
+
+  console.log(documents);
 
   const newWords = documents[0].words.map(item => {
     if (item.id === wordId) {

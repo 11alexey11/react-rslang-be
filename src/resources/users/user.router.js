@@ -10,11 +10,8 @@ const {
 
 router.post('/', validator(user, 'body'), async (req, res) => {
   const responseDB = await userService.save(req.body);
-  if (responseDB.error) {
-    res.status(OK).send(responseDB);
-  } else {
-    res.status(OK).send(responseDB);
-  }
+  console.log(responseDB);
+  res.status(OK).send(responseDB);
 });
 
 router.get(
