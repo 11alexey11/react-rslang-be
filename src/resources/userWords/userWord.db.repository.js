@@ -50,7 +50,7 @@ const save = async (wordId, userId, userWord) => {
 
 const update = async (wordId, userId, userWord) => {
   const newWordsArray = wordsArray.map(item => {
-    if (item._id.$oid) {
+    if (item._id) {
       const id = item._id.$oid;
       delete item._id;
       return {
