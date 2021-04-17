@@ -20,7 +20,7 @@ const upsert = async (userId, statistic) =>
         sprint: statistic.sprint,
         constructorWords: statistic.constructorWords
       }
-    }
+    },
     { upsert: true }
   );
 
