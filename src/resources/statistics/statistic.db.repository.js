@@ -11,7 +11,7 @@ const get = async userId => {
 };
 
 const upsert = async (userId, statistic) =>
-  Statistics.findOneAndUpdate(
+  await Statistics.findOneAndUpdate(
     { userId },
     { $set: statistic },
     { upsert: true, new: true }
