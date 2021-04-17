@@ -21,7 +21,7 @@ const upsert = async (userId, statistic) =>
         constructorWords: statistic.constructorWords
       }
     },
-    { upsert: true }
+    { upsert: true, new: true }
   );
 
 const remove = async userId => Statistics.deleteOne({ userId });
