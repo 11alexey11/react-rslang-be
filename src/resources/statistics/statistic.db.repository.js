@@ -13,8 +13,15 @@ const get = async userId => {
 const upsert = async (userId, statistic) =>
   await Statistics.findOneAndUpdate(
     { userId },
-    { $set: statistic },
-    { upsert: true, new: true }
+    { 
+      statistics: {
+        savannah: statistic.savannah,
+        audioCall: statistic.audioCall,
+        sprint: statistic.sprint,
+        constructorWords: statistic.constructorWords
+      }
+    }
+    { upsert: true }
   );
 
 const remove = async userId => Statistics.deleteOne({ userId });
