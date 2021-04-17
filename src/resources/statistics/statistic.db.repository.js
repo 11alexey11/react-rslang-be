@@ -13,14 +13,7 @@ const get = async userId => {
 const upsert = async (userId, statistic) =>
   await Statistics.findOneAndUpdate(
     { userId },
-    { 
-      statistics: {
-        savannah: statistic.savannah,
-        audioCall: statistic.audioCall,
-        sprint: statistic.sprint,
-        constructorWords: statistic.constructorWords
-      }
-    },
+    { $set: statistic },
     { upsert: true, new: true }
   );
 
